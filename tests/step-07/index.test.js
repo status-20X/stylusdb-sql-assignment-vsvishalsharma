@@ -20,6 +20,8 @@ test('Parse SQL Query', () => {
         joinCondition:null,
         joinTable:null,
         whereClauses: [],
+        groupByFields:null,
+        hasAggregateWithoutGroupBy:false,
     });
 });
 
@@ -47,6 +49,8 @@ test('Parse SQL Query with WHERE Clause', () => {
           operator: "=",
           value: "25",
         }],
+        groupByFields:null,
+        hasAggregateWithoutGroupBy:false,
     });
 });
 
@@ -76,7 +80,9 @@ test('Parse SQL Query with Multiple WHERE Clauses', () => {
             "field": "name",
             "operator": "=",
             "value": "John",
-        }]
+        }],
+        groupByFields:null,
+        hasAggregateWithoutGroupBy:false,
     });
 });
 

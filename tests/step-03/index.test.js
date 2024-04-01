@@ -19,5 +19,7 @@ test('Parse SQL Query', () => {
         joinType:null,
         joinTable:null,
         whereClauses:[],
+        groupByFields:null,
+        hasAggregateWithoutGroupBy:false,
     });
 });
