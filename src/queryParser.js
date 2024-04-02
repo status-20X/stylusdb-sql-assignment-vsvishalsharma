@@ -1,8 +1,20 @@
+/*
+Creating a Query Parser which can parse SQL `SELECT` Queries only.
+// */
 function parseQuery(query) {
     try {
 
         // Trim the query to remove any leading/trailing whitespaces
         query = query.trim();
+
+        // Initialize distinct flag
+        let isDistinct = false;
+
+        // Check for DISTINCT keyword and update the query
+        if (query.toUpperCase().includes('SELECT DISTINCT')) {
+            isDistinct = true;
+            query = query.replace('SELECT DISTINCT', 'SELECT');
+        }
 
         // Updated regex to capture LIMIT clause and remove it for further processing
         const limitRegex = /\sLIMIT\s(\d+)/i;
@@ -74,10 +86,10 @@ function parseQuery(query) {
             groupByFields,
             orderByFields,
             hasAggregateWithoutGroupBy,
-            limit
+            limit,
+            isDistinct
         };
     } catch (error) {
-        console.log(error.message);
         throw new Error(`Query parsing error: ${error.message}`);
     }
 }
@@ -90,12 +102,17 @@ function checkAggregateWithoutGroupBy(query, groupByFields) {
 function parseWhereClause(whereString) {
     const conditionRegex = /(.*?)(=|!=|>|<|>=|<=)(.*)/;
     return whereString.split(/ AND | OR /i).map(conditionString => {
-        const match = conditionString.match(conditionRegex);
-        if (match) {
-            const [, field, operator, value] = match;
-            return { field: field.trim(), operator, value: value.trim() };
+        if (conditionString.includes(' LIKE ')) {
+            const [field, pattern] = conditionString.split(/\sLIKE\s/i);
+            return { field: field.trim(), operator: 'LIKE', value: pattern.trim().replace(/^'(.*)'$/, '$1') };
+        } else {
+            const match = conditionString.match(conditionRegex);
+            if (match) {
+                const [, field, operator, value] = match;
+                return { field: field.trim(), operator, value: value.trim() };
+            }
+            throw new Error('Invalid WHERE clause format');
         }
-        throw new Error('Invalid WHERE clause format');
     });
 }
 
