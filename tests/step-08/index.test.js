@@ -22,6 +22,8 @@ test('Parse SQL Query', () => {
         joinTable: null,
         groupByFields:null,
         hasAggregateWithoutGroupBy:false,
+        "orderByFields":null,
+        "limit": null
     });
 });
 
@@ -51,6 +53,8 @@ test('Parse SQL Query with WHERE Clause', () => {
         joinTable: null,
         groupByFields:null,
         hasAggregateWithoutGroupBy:false,
+        "orderByFields":null,
+        "limit": null
     });
 });
 
@@ -83,6 +87,8 @@ test('Parse SQL Query with Multiple WHERE Clauses', () => {
         joinTable: null,
         groupByFields:null,
         hasAggregateWithoutGroupBy:false,
+        "orderByFields":null,
+        "limit": null
     });
 });
 
@@ -119,6 +125,8 @@ test('Parse SQL Query with INNER JOIN', async () => {
         joinCondition: { left: 'student.id', right: 'enrollment.student_id' },
         groupByFields:null,
         hasAggregateWithoutGroupBy:false,
+        "orderByFields":null,
+        "limit": null
     })
 });
 
@@ -134,6 +142,8 @@ test('Parse SQL Query with INNER JOIN and WHERE Clause', async () => {
         joinCondition: { left: 'student.id', right: 'enrollment.student_id' },
         groupByFields:null,
         hasAggregateWithoutGroupBy:false,
+        "orderByFields":null,
+        "limit": null
     })
 });
 

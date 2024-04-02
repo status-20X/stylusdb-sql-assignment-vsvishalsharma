@@ -21,7 +21,9 @@ test('Parse SQL Query', () => {
         joinTable:null,
         whereClauses: [],
         groupByFields:null,
-        hasAggregateWithoutGroupBy:false, // Update to match the new structure
+        hasAggregateWithoutGroupBy:false, 
+        "orderByFields":null,
+        "limit": null// Update to match the new structure
     });
 });
 
@@ -53,6 +55,8 @@ test('Parse SQL Query with WHERE Clause', () => {
         ],
         groupByFields:null,
         hasAggregateWithoutGroupBy:false,
+        "orderByFields":null,
+        "limit": null
     });
 });
 
